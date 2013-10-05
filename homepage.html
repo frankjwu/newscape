@@ -96,12 +96,6 @@
             "stylers": [
               { "visibility": "off" }
             ]
-          },{
-            "featureType": "road.highway",
-            "stylers": [
-              { "visibility": "on" },
-              { "lightness": 44 }
-            ]
           }
         ];
         map.setOptions({styles: minstyle});
@@ -129,9 +123,14 @@
             map: map,
             title: newsTitle,
           });
-          google.maps.event.addListener(marker, 'click', function() {
+          google.maps.event.addListener(newsCircle, 'click', function() {
             infowindow.setContent(newsBlurb);
             infowindow.open(map,marker);
+          });
+          google.maps.event.addListener(newsCircle, 'click', function() {
+            infowindow.setContent(newsBlurb);
+            infowindow.open(map,marker);
+            
           });
         }
 
