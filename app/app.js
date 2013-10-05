@@ -61,7 +61,7 @@ app.get('/contact', function(req, res){
 app.post('/display', function(req, res){
   var query = req.body.keywords.toString();
   console.log(query);
-  oauth.get(
+  data = oauth.get(
     "https://api.twitter.com/1.1/search/tweets.json?q=" + query,
     "343035791-6b8GEQKMnu5byFbVvUPX8d6K6KmqM8BqKwEawK7W",
     "gIbEV2yVhbtk7pLHxpDyzLTBZTx1vrU2aqJVIPiMk",
