@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  if message
+    p= message
+    
+  form(action='/display',method='POST',id='displayForm')
+    input(name= "keywords",rows=1,size=30,placeholder="What are you looking for")
