@@ -67,7 +67,9 @@ app.post('/display', function(req, res){
     "gIbEV2yVhbtk7pLHxpDyzLTBZTx1vrU2aqJVIPiMk",
     function (e, data, res){
       if (e) console.error(e);
-      console.log(require('util').inspect(data));    
+      console.log(require('util').inspect(data));
+      jQuery.get('/Users/grub/Desktop/mithackathon/testScript.py', test() {
+      };    
     });
   res.render('display', {
     title: 'Display'
