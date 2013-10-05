@@ -3,6 +3,18 @@
  * Module dependencies.
  */
 
+var OAuth = require('OAuth');
+
+var oauth = new OAuth.OAuth(
+  "https://api.twitter.com/oauth/request_token",
+  "https://api.twitter.com/oauth/access_token",
+  "pLidie6BYfVSE9u8B6Dzg",
+  "76eTJNAP9pBZu2UgEWH1ykyItIgKYJZAfjOFu9JNCY",
+  "1.0",
+  null,
+  "HMAC-SHA1"
+);
+
 var express = require('express');
 var routes = require('./routes');
 var user = require('./routes/user');
@@ -46,11 +58,27 @@ app.get('/contact', function(req, res){
   });
 });
 
-app.get('/display', function(req, res){
+app.post('/display', function(req, res){
+  var query = req.body.keywords.toString();
+  console.log(query);
+  oauth.get(
+    "https://api.twitter.com/1.1/search/tweets.json?q=" + query,
+    "343035791-6b8GEQKMnu5byFbVvUPX8d6K6KmqM8BqKwEawK7W",
+    "gIbEV2yVhbtk7pLHxpDyzLTBZTx1vrU2aqJVIPiMk",
+    function (e, data, res){
+      if (e) console.error(e);
+      console.log(require('util').inspect(data));    
+    });
   res.render('display', {
     title: 'Display'
   });
 });
+
+// app.get('/display', function(req, res){
+//   res.render('display', {
+//     title: 'Display'
+//   });
+// });
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
