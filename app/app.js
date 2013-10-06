@@ -87,18 +87,13 @@ app.post('/display', function(req, res){
         //   complete(tweets);
         // }
         // //console.log(tweets);
-        res.render('display', {
-          title: 'Display',
-          json: JSON.stringify(JSON.parse(data).statuses.sort(function(a, b) {
-            datea = new Date(a.created_at);
-            dateb = new Date(b.created_at);
-            return datea > dateb ? a : b;
 
-          var listOfLocations = [];        
+        function getLocs(tweets) {
+          var listOfLocations = [];
           for (i=0;i<tweets.length;i++) {
             loc = tweets[i]['user']['location']; 
             zone = tweets[i]['user']['time_zone'];
-          
+        
             function isInArray(value, array) {
               return array.indexOf(value) > -1 ? true: false;
             }
@@ -107,11 +102,21 @@ app.post('/display', function(req, res){
               ;
             } 
             else {
-              listofLocations.push(loc);
+              listOfLocations.push(loc);
             }
           }  
-          console.log(listOfDates);
-          }))
+          tweets.push(listOfLocations);
+          //console.log(tweets);
+          return tweets;
+        }     
+
+        res.render('display', {
+          title: 'Display',
+          json: JSON.stringify(getLocs(JSON.parse(data).statuses.sort(function(a, b) {
+            datea = new Date(a.created_at);
+            dateb = new Date(b.created_at);
+            return datea > dateb ? a : b;
+          })))
         });
 
       }

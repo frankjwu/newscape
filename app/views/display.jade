@@ -6,7 +6,6 @@ block content
   script.
     function initialize(tweets) {
       console.log(tweets);
-      console.log(tweets[0].text)
 
       var mapOptions = {
         center: new google.maps.LatLng(41.3, -72.9),
@@ -131,5 +130,6 @@ block content
       }
 
     }
-    var json = !{json}
+    var json = !{json};
+    console.log(json);
     google.maps.event.addDomListener(window, 'load', initialize(json));
