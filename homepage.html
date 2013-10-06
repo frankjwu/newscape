@@ -97,6 +97,13 @@
             "stylers": [
               { "visibility": "off" }
             ]
+          },{
+            "featureType": "administrative",
+            "stylers": [
+              { "lightness": 10 },
+              { "gamma": 1.9 },
+              { "visibility": "on" }
+            ]
           }
         ];
         map.setOptions({styles: minstyle});
@@ -115,8 +122,8 @@
           var hex = '#' + rainbow.colourAt(newsMap[newsItem].radius);
           var circleOptions = {
             strokeColor: hex,
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
+            strokeOpacity: 1,
+            strokeWeight: 3,
             fillColor: hex,
             fillOpacity: 0.6*newsMap[newsItem].radius/maxRadius,
             map: map,
