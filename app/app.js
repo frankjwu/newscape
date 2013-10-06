@@ -62,61 +62,60 @@ app.post('/display', function(req, res){
   var query = req.body.keywords.toString();
   console.log(query);
   data = oauth.get(
-    "https://api.twitter.com/1.1/search/tweets.json?q=" + query,
+    "https://api.twitter.com/1.1/search/tweets.json?q=" + query + "&count=100&result_type=mixed",
     "343035791-6b8GEQKMnu5byFbVvUPX8d6K6KmqM8BqKwEawK7W",
     "gIbEV2yVhbtk7pLHxpDyzLTBZTx1vrU2aqJVIPiMk",
-    function (e, data, res){
+    function (e, data, ref){
       if (e) console.error(e);
       else {
-        //console.log("hi");
-        //console.log(require('util').inspect(data));
-        // jQuery.get('/Users/grub/Desktop/mithackathon/testScript.py', test() {
-        // };
-        tweets = JSON.parse(data).statuses;
-        tweets = tweets.sort(function(a, b) {
-          datea = new Date(a.created_at);
-          dateb = new Date(b.created_at);
-          return datea>dateb ? a : b;
-        });
-        //console.log(tweets);
-        var listOfLocations = [];        
-        for (i=0;i<tweets.length;i++) {
-          loc = tweets[i]['user']['location']; 
-          zone = tweets[i]['user']['time_zone'];
-          
-          function isInArray(value, array) {
-            return array.indexOf(value) > -1 ? true: false;
-          }
+        // var asyncCounter = 1;
+        // var complete = function(tweets) {
+        //   if (--asyncCounter > 0) {
+        //     return;
+        //   }
+        //   console.log(tweets);
+        //   res.render('display', {title: 'Display', data: tweets});
+        // }
 
-          if (isInArray(loc, listOfLocations) == true) {
-            ;
-          } 
-          else {
-            listofLocations.push(loc);
-          }
-          //var d = new Date(tweets[i]['created_at']);
-          //listOfDates.push([d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds()])
+        // tweets = processData(JSON.parse(data).statuses);
+        // function processData(tweets) {
+        //   tweets = tweets.sort(function(a, b) {
+        //     datea = new Date(a.created_at);
+        //     dateb = new Date(b.created_at);
+        //     return datea>dateb ? a : b;
+        //   });
+        //   complete(tweets);
+        // }
+        // //console.log(tweets);
+        res.render('display', {
+          title: 'Display',
+          json: JSON.stringify(JSON.parse(data).statuses.sort(function(a, b) {
+            datea = new Date(a.created_at);
+            dateb = new Date(b.created_at);
+            return datea > dateb ? a : b;
+
+          var listOfLocations = [];        
+          for (i=0;i<tweets.length;i++) {
+            loc = tweets[i]['user']['location']; 
+            zone = tweets[i]['user']['time_zone'];
           
-          //var geocoder = new google.maps.Geocoder();
-          //var address = document.getElementById("address").value;
-          //geocoder.geocode( { 'address': loc}, function(results, status) {
-          //if (status == google.maps.GeocoderStatus.OK)
-          //{
-          // do something with the geocoded result
-          //       //
-          //  console.log(results[0].geometry.location.latitude);
-          //  console.log(results[0].geometry.location.longitude);
-         // }
-          //});
-          //
-          } 
-        console.log(listOfDates);
+            function isInArray(value, array) {
+              return array.indexOf(value) > -1 ? true: false;
+            }
+
+            if (isInArray(loc, listOfLocations) == true) {
+              ;
+            } 
+            else {
+              listofLocations.push(loc);
+            }
+          }  
+          console.log(listOfDates);
+          }))
+        });
+
       }
-    }
-  );
-  res.render('display', {
-    title: 'Display'
-  });
+    });
 });
 
 
