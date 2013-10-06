@@ -82,6 +82,9 @@ app.post('/display', function(req, res){
       }
     }
   );
+  res.render('display', {
+    title: 'Display'
+  });
 });
 
 
