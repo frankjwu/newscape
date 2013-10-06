@@ -130,22 +130,29 @@ block content
       len = tweets.length-1;
       geocoder = new google.maps.Geocoder();
       for (var loc in tweets[len]){
-        geocoder.geocode({ 'address': tweets[len][loc][0] }, function(results, status){  
-          if (status == google.maps.GeocoderStatus.OK) {          
-            var marker  = new google.maps.Marker({
-            map: map, 
+        preprocess(len, loc, geocoder, tweets);
+      }
+     
+      function preprocess(len, loc, geocoder, tweets) 
+      {
+        geocoder.geocode({'address': tweets[len][loc][0]}, function(results, status){
+          if (status==google.maps.GeocoderStatus.OK) {
+            processPoint(len, loc, new google.maps.Marker({
+            map:map, 
             position: results[0].geometry.location,
-            title:'test',
-            blurb: tweets[len][loc][1]['text']
-            });
-            //- google.maps.event.addListener(marker, 'click', function() {
-            //-   infowindow.setContent(tweets[len][loc][1]);
-            //-   infowindow.open(map,marker);
-            //- });
+            title:'test'}), tweets);
           }
         })
       }
-      
+
+ 
+      function processPoint(len, loc, marker, tweets)
+      {
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.setContent(tweets[len][loc][1]['text']);
+          infowindow.open(map, marker);
+        });
+      }
 
       //- function codeAddress() {
       //-   geocoder.geocode( { 'address': this}, function(results, status) {
