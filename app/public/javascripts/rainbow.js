@@ -8,7 +8,8 @@ function Rainbow()
     var gradients = null;
     var minNum = 0;
     var maxNum = 100;
-    var colours = ['ff0000', 'ffff00', '00ff00', '0000ff']; 
+    //var colours = ['E70000', 'E75050', 'E78A8A', 'E7B7B7']; 
+    var colours = ['E7B7B7', 'E78A8A', 'E75050', 'E70000'];
     setColours(colours);
 
     function setColours (spectrum) 
@@ -78,8 +79,8 @@ function Rainbow()
 
 function ColourGradient() 
 {
-    var startColour = 'ff0000';
-    var endColour = '0000ff';
+    var startColour = 'E7B7B7';
+    var endColour = 'E70000';
     var minNum = 0;
     var maxNum = 100;
 
