@@ -55,77 +55,33 @@ block content
       ];
       map.setOptions({styles: minstyle});
 
-      var newsMap = {};
-      newsMap['Poopertrator'] = {
-        center: new google.maps.LatLng(41.3, -72.9),
-        radius: 30000,
-        title: 'Poopertrator',
-        blurb: '<div id="content">'+
-          '<div id="siteNotice">'+
-          '</div>'+
-          '<h1 id="firstHeading" class="firstHeading">Poopetrator</h1>'+
-          '<div id="bodyContent">'+
-          '<p><b>Poopetrator</b>, also referred to as <b>Poopgate</b>, is a ' +
-          'very contentious event in Yale\'s recent history. </p>'+
-          '<p>Attribution: <a href="http://www.yahoo.com">Yahoo</a></p>'+
-          '</div>'+
-          '</div>',
-      };
-      newsMap['Poopgate'] = {
-        center: new google.maps.LatLng(42.3, -72.9),
-        radius: 6000,
-        title: 'Poopgate',
-        blurb: '<div id="content">'+
-          '<div id="siteNotice">'+
-          '</div>'+
-          '<h1 id="firstHeading" class="firstHeading">Poopgate</h1>'+
-          '<div id="bodyContent">'+
-          '<p><b>Poopgate</b>, also referred to as <b>the Poopetrator Incident</b>, '+
-          'is a very contentious event in Yale\'s recent history. </p>'+
-          '<p>Attribution: <a href="http://www.yahoo.com">Yahoo</a></p>'+
-          '</div>'+
-          '</div>',
-      };
-      newsMap['YO'] = {
-        center: new google.maps.LatLng(41.3, -73.9),
-        radius: 7000,
-        title: 'YOYO',
-        blurb: '<div id="content">'+
-          '<div id="siteNotice">'+
-          '</div>'+
-          '<h1 id="firstHeading" class="firstHeading">CHARLESJIN</h1>'+
-          '<div id="bodyContent">'+
-          '<p><b>YOYOYO</b> is so fucking cool' +
-          '<p>Attribution: <a href="http://www.yahoo.com">Yahoo</a></p>'+
-          '</div>'+
-          '</div>',
-      };
 
-      var maxRadius;
-      for (var newsItem in newsMap){
-        maxRadius = (maxRadius > newsMap[newsItem].radius) ? maxRadius : newsMap[newsItem].radius;
-      }
 
-      var rainbow = new Rainbow();
+      //- var maxRadius;
+      //- for (var newsItem in newsMap){
+      //-   maxRadius = (maxRadius > newsMap[newsItem].radius) ? maxRadius : newsMap[newsItem].radius;
+      //- }
+
+      //- var rainbow = new Rainbow();
       var infowindow = new google.maps.InfoWindow();
-      rainbow.setNumberRange(0, maxRadius);
+      //- rainbow.setNumberRange(0, maxRadius);
 
       // Construct the circle for each newsitem
-      for (var newsItem in newsMap) {
-        var hex = '#' + rainbow.colourAt(newsMap[newsItem].radius);
-        var circleOptions = {
-          strokeColor: hex,
-          strokeOpacity: 1,
-          strokeWeight: 3,
-          fillColor: hex,
-          fillOpacity: 0.6*newsMap[newsItem].radius/maxRadius,
-          map: map,
-          center: newsMap[newsItem].center,
-          radius: newsMap[newsItem].radius,
-        };
-        newsCircle = new google.maps.Circle(circleOptions);
-        createMarker(newsMap[newsItem].center, newsMap[newsItem].title, newsMap[newsItem].blurb, '#' + rainbow.colourAt(newsMap[newsItem].radius));
-      };
+      //- for (var newsItem in newsMap) {
+      //-   var hex = '#' + rainbow.colourAt(newsMap[newsItem].radius);
+      //-   var circleOptions = {
+      //-     strokeColor: hex,
+      //-     strokeOpacity: 1,
+      //-     strokeWeight: 3,
+      //-     fillColor: hex,
+      //-     fillOpacity: 0.6*newsMap[newsItem].radius/maxRadius,
+      //-     map: map,
+      //-     center: newsMap[newsItem].center,
+      //-     radius: newsMap[newsItem].radius,
+      //-   };
+      //-   newsCircle = new google.maps.Circle(circleOptions);
+      //-   createMarker(newsMap[newsItem].center, newsMap[newsItem].title, newsMap[newsItem].blurb, '#' + rainbow.colourAt(newsMap[newsItem].radius));
+      //- };
 
       len = tweets.length-1;
       geocoder = new google.maps.Geocoder();
