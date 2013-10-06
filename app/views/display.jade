@@ -105,7 +105,7 @@ block content
       function processPoint(len, loc, marker, tweets)
       {
         google.maps.event.addListener(marker, 'click', function() {
-          infowindow.setContent(tweets[len][loc][1]['text']);
+          infowindow.setContent(tweets[len][loc][1]['text']+' sent by '+tweets[len][loc][1]['user']['name']);
           infowindow.open(map, marker);
         });
       }
