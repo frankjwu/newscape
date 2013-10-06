@@ -67,23 +67,26 @@ app.post('/display', function(req, res){
     "gIbEV2yVhbtk7pLHxpDyzLTBZTx1vrU2aqJVIPiMk",
     function (e, data, res){
       if (e) console.error(e);
-      console.log(require('util').inspect(data));
-      // jQuery.get('/Users/grub/Desktop/mithackathon/testScript.py', test() {
-      // };
-    function sortTweets(prop, asc) {
-    tweets = tweets.sort(function(a, b) {
-        if (asc) return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
-        else return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
-    });
-    showResults();
-}
-
-sortTweets('created_at', true);
-    });
+      else {
+        console.log("hi");
+        //console.log(require('util').inspect(data));
+        // jQuery.get('/Users/grub/Desktop/mithackathon/testScript.py', test() {
+        // };
+        tweets = JSON.parse(data).statuses;
+        tweets = tweets.sort(function(a, b) {
+          datea = new Date(a.created_at);
+          dateb = new Date(b.created_at);
+          return datea>dateb ? a : b;
+        });
+        console.log(tweets);
+      }
+    }
+  );
   res.render('display', {
     title: 'Display'
   });
 });
+
 
 // app.get('/display', function(req, res){
 //   res.render('display', {
