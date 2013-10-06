@@ -22,8 +22,8 @@ a {
 #home {
   margin: 0 auto;
   text-align: center;
-  font-size: 40px;
-  color: #ffc0cb;
+  font-size: 25px;
+  color: #000;
   overflow-y: hidden;
   overflow-x: hidden;
 }
@@ -31,4 +31,8 @@ input[type=text] {
   font-size: 20px;
   text-align: center;
   line-height: 2em;
+}
+#logo {
+  padding-top: 80px;
+  margin-bottom: -20px;
 }
