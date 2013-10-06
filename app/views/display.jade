@@ -86,16 +86,16 @@ block content
           '</div>'+
           '</div>',
       };
-      newsMap['CHARLESJIN'] = {
+      newsMap['YO'] = {
         center: new google.maps.LatLng(41.3, -73.9),
         radius: 7000,
-        title: 'CHARLESJIN',
+        title: 'YOYO',
         blurb: '<div id="content">'+
           '<div id="siteNotice">'+
           '</div>'+
           '<h1 id="firstHeading" class="firstHeading">CHARLESJIN</h1>'+
           '<div id="bodyContent">'+
-          '<p><b>Charles Jin</b>, is so fucking cool' +
+          '<p><b>YOYOYO</b> is so fucking cool' +
           '<p>Attribution: <a href="http://www.yahoo.com">Yahoo</a></p>'+
           '</div>'+
           '</div>',
@@ -130,16 +130,19 @@ block content
       len = tweets.length-1;
       geocoder = new google.maps.Geocoder();
       for (var loc in tweets[len]){
-      geocoder.geocode({ 'address': tweets[len][loc] }, function(results, status){  
-      //    alert("hi");
-        if (status == google.maps.GeocoderStatus.OK) {          
-          var marker  = new google.maps.Marker({
-          map: map, 
-          position: results[0].geometry.location,
-          title:'test',
-          });
-        }
-      })
+        geocoder.geocode({ 'address': tweets[len][loc][0] }, function(results, status){  
+          if (status == google.maps.GeocoderStatus.OK) {          
+            var marker  = new google.maps.Marker({
+            map: map, 
+            position: results[0].geometry.location,
+            title:'test',
+            });
+            //- google.maps.event.addListener(marker, 'click', function() {
+            //-   infowindow.setContent(tweets[len][loc][1]);
+            //-   infowindow.open(map,marker);
+            //- });
+          }
+        })
       }
       
 
