@@ -129,18 +129,19 @@ block content
 
       len = tweets.length-1;
       geocoder = new google.maps.Geocoder();
-      //- for (var loc in tweets[len]){
-        geocoder.geocode({ 'address': '3708 Stoneway Drive, Plano, TX 75025'}, function(results, status){  
-          alert("hi");
-          if (status == google.maps.GeocoderStatus.OK) {          
-            var marker  = new google.maps.Marker({
-              map: map, 
-              position: results[0].geometry.location,
-              title:test,
-            });
-          }
+      for (var loc in tweets[len]){
+      geocoder.geocode({ 'address': tweets[len][loc] }, function(results, status){  
+      //    alert("hi");
+        if (status == google.maps.GeocoderStatus.OK) {          
+          var marker  = new google.maps.Marker({
+          map: map, 
+          position: results[0].geometry.location,
+          title:'test',
+          });
         }
-      //- }
+      })
+      }
+      
 
       //- function codeAddress() {
       //-   geocoder.geocode( { 'address': this}, function(results, status) {

@@ -87,7 +87,7 @@ app.post('/display', function(req, res){
         //   complete(tweets);
         // }
         // //console.log(tweets);
-
+      
         function getLocs(tweets) {
           var listOfLocations = [];
           for (i=0;i<tweets.length;i++) {
@@ -107,9 +107,8 @@ app.post('/display', function(req, res){
           }  
           tweets.push(listOfLocations);
           //console.log(tweets);
-          return tweets;
+          return tweets
         }     
-
         res.render('display', {
           title: 'Display',
           json: JSON.stringify(getLocs(JSON.parse(data).statuses.sort(function(a, b) {
