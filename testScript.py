@@ -1,7 +1,10 @@
-import pylab, matplotlib, numpy, scipy
-import json, pickle
-from operator import itemgetter
-import datetime, calendar
+#import pylab, matplotlib, numpy, scipy
+#import json, pickle
+#from operator import itemgetter
+#import datetime, calendar
+
+def test():
+    print 'hi' 
 
 def convertJsontoDict(obj):
     python_dict = json.loads(obj);
@@ -80,4 +83,3 @@ def splitByTime(sorted_results):
             within_one_year.append(i);
     
     return within_one_day, within_one_week, within_one_month, within_one_year
-
