@@ -103,7 +103,7 @@ app.post('/display', function(req, res){
               ;
             } 
             else {
-              listOfLocations.push([loc, tweets[i]['text']]);
+              listOfLocations.push([loc, tweets[i]]);
             }
           }  
           tweets.push(listOfLocations);
