@@ -17,7 +17,7 @@ block content
       newsMap['Poopertrator'] = {
         center: new google.maps.LatLng(41.3, -72.9),
         radius: 30000,
-        title: tweets[0].text,
+        title: 'Poopertrator',
         blurb: '<div id="content">'+
           '<div id="siteNotice">'+
           '</div>'+
@@ -51,7 +51,7 @@ block content
         blurb: '<div id="content">'+
           '<div id="siteNotice">'+
           '</div>'+
-          '<h1 id="firstHeading" class="firstHeading">CHARESJIN</h1>'+
+          '<h1 id="firstHeading" class="firstHeading">CHARLESJIN</h1>'+
           '<div id="bodyContent">'+
           '<p><b>Charles Jin</b>, is so fucking cool' +
           '<p>Attribution: <a href="http://www.yahoo.com">Yahoo</a></p>'+
@@ -91,45 +91,63 @@ block content
             { "visibility": "off" }
           ]
         },{
-          "featureType": "road.highway",
+          "featureType": "administrative",
           "stylers": [
-            { "visibility": "on" },
-            { "lightness": 44 }
+            { "lightness": 10 },
+            { "gamma": 1.9 },
+            { "visibility": "on" }
           ]
         }
       ];
       map.setOptions({styles: minstyle});
 
+      var maxRadius;
+      for (var newsItem in newsMap){
+        maxRadius = (maxRadius > newsMap[newsItem].radius) ? maxRadius : newsMap[newsItem].radius;
+      }
+
+      var rainbow = new Rainbow();
       var infowindow = new google.maps.InfoWindow();
+      rainbow.setNumberRange(0, maxRadius);
+
       // Construct the circle for each newsitem
       for (var newsItem in newsMap) {
+        var hex = '#' + rainbow.colourAt(newsMap[newsItem].radius);
         var circleOptions = {
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: '#FF0000',
-          fillOpacity: 0.35,
+          strokeColor: hex,
+          strokeOpacity: 1,
+          strokeWeight: 3,
+          fillColor: hex,
+          fillOpacity: 0.6*newsMap[newsItem].radius/maxRadius,
           map: map,
           center: newsMap[newsItem].center,
           radius: newsMap[newsItem].radius,
         };
         newsCircle = new google.maps.Circle(circleOptions);
-        createMarker(newsMap[newsItem].center, newsMap[newsItem].title, newsMap[newsItem].blurb);
+        createMarker(newsMap[newsItem].center, newsMap[newsItem].title, newsMap[newsItem].blurb, '#' + rainbow.colourAt(newsMap[newsItem].radius));
       };
 
-      function createMarker(newsCenter, newsTitle, newsBlurb){
+      function createMarker(newsCenter, newsTitle, newsBlurb, pinColor){
+        var pinImage = new google.maps.MarkerImage(
+            new google.maps.Size(0,0),
+            new google.maps.Point(0,0),
+            new google.maps.Point(0,0));
         var marker = new google.maps.Marker({
           position: newsMap[newsItem].center,
           map: map,
           title: newsTitle,
+          icon: pinImage,
         });
         google.maps.event.addListener(marker, 'click', function() {
+          infowindow.setContent(newsBlurb);
+          infowindow.open(map,marker);
+        });
+        google.maps.event.addListener(newsCircle, 'click', function() {
           infowindow.setContent(newsBlurb);
           infowindow.open(map,marker);
         });
       }
 
     }
-    var json = !{json};
-    console.log(json);
+    var json = !{json}
     google.maps.event.addDomListener(window, 'load', initialize(json));
