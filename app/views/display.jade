@@ -13,6 +13,48 @@ block content
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
 
+      var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+      var minstyle = [
+        {
+          "featureType": "road",
+          "elementType": "geometry",
+          "stylers": [
+            { "color": "#4d8080" },
+            { "visibility": "off" }
+          ]
+        },{
+          "featureType": "road",
+          "elementType": "labels",
+          "stylers": [
+            { "visibility": "off" }
+          ]
+        },{
+          "featureType": "landscape",
+          "stylers": [
+            { "visibility": "off" }
+          ]
+        },{
+          "featureType": "transit",
+          "stylers": [
+            { "visibility": "off" }
+          ]
+        },{
+          "featureType": "poi",
+          "stylers": [
+            { "visibility": "off" }
+          ]
+        },{
+          "featureType": "administrative",
+          "stylers": [
+            { "lightness": 10 },
+            { "gamma": 1.9 },
+            { "visibility": "on" }
+          ]
+        }
+      ];
+      map.setOptions({styles: minstyle});
+
       var newsMap = {};
       newsMap['Poopertrator'] = {
         center: new google.maps.LatLng(41.3, -72.9),
@@ -59,48 +101,6 @@ block content
           '</div>',
       };
 
-      var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
-
-      var minstyle = [
-        {
-          "featureType": "road",
-          "elementType": "geometry",
-          "stylers": [
-            { "color": "#4d8080" },
-            { "visibility": "off" }
-          ]
-        },{
-          "featureType": "road",
-          "elementType": "labels",
-          "stylers": [
-            { "visibility": "off" }
-          ]
-        },{
-          "featureType": "landscape",
-          "stylers": [
-            { "visibility": "off" }
-          ]
-        },{
-          "featureType": "transit",
-          "stylers": [
-            { "visibility": "off" }
-          ]
-        },{
-          "featureType": "poi",
-          "stylers": [
-            { "visibility": "off" }
-          ]
-        },{
-          "featureType": "administrative",
-          "stylers": [
-            { "lightness": 10 },
-            { "gamma": 1.9 },
-            { "visibility": "on" }
-          ]
-        }
-      ];
-      map.setOptions({styles: minstyle});
-
       var maxRadius;
       for (var newsItem in newsMap){
         maxRadius = (maxRadius > newsMap[newsItem].radius) ? maxRadius : newsMap[newsItem].radius;
@@ -126,6 +126,32 @@ block content
         newsCircle = new google.maps.Circle(circleOptions);
         createMarker(newsMap[newsItem].center, newsMap[newsItem].title, newsMap[newsItem].blurb, '#' + rainbow.colourAt(newsMap[newsItem].radius));
       };
+
+      len = tweets.length-1;
+      geocoder = new google.maps.Geocoder();
+      //- for (var loc in tweets[len]){
+        geocoder.geocode({ 'address': '3708 Stoneway Drive, Plano, TX 75025'}, function(results, status){  
+          alert("hi");
+          if (status == google.maps.GeocoderStatus.OK) {          
+            var marker  = new google.maps.Marker({
+              map: map, 
+              position: results[0].geometry.location,
+              title:test,
+            });
+          }
+        }
+      //- }
+
+      //- function codeAddress() {
+      //-   geocoder.geocode( { 'address': this}, function(results, status) {
+      //-     if (status == google.maps.GeocoderStatus.OK) {
+      //-       var marker = new google.maps.Marker({
+      //-           map: map,
+      //-           position: results[0].geometry.location,
+      //-       });
+      //-     }
+      //-   }
+      //- });
 
       function createMarker(newsCenter, newsTitle, newsBlurb, pinColor){
         var pinImage = new google.maps.MarkerImage(
