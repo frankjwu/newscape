@@ -89,6 +89,7 @@ app.post('/display', function(req, res){
         // //console.log(tweets);
       
         function getLocs(tweets) {
+          console.log(tweets);
           var listOfLocations = [];
           for (i=0;i<tweets.length;i++) {
             loc = tweets[i]['user']['location']; 
@@ -102,7 +103,7 @@ app.post('/display', function(req, res){
               ;
             } 
             else {
-              listOfLocations.push([loc, tweets[i]]);
+              listOfLocations.push([loc, tweets[i]['text']]);
             }
           }  
           tweets.push(listOfLocations);
