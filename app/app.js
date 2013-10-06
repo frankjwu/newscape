@@ -68,7 +68,7 @@ app.post('/display', function(req, res){
     function (e, data, res){
       if (e) console.error(e);
       else {
-        console.log("hi");
+        //console.log("hi");
         //console.log(require('util').inspect(data));
         // jQuery.get('/Users/grub/Desktop/mithackathon/testScript.py', test() {
         // };
@@ -78,7 +78,39 @@ app.post('/display', function(req, res){
           dateb = new Date(b.created_at);
           return datea>dateb ? a : b;
         });
-        console.log(tweets);
+        //console.log(tweets);
+        var listOfLocations = [];        
+        for (i=0;i<tweets.length;i++) {
+          loc = tweets[i]['user']['location']; 
+          zone = tweets[i]['user']['time_zone'];
+          
+          function isInArray(value, array) {
+            return array.indexOf(value) > -1 ? true: false;
+          }
+
+          if (isInArray(loc, listOfLocations) == true) {
+            ;
+          } 
+          else {
+            listofLocations.push(loc);
+          }
+          //var d = new Date(tweets[i]['created_at']);
+          //listOfDates.push([d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds()])
+          
+          //var geocoder = new google.maps.Geocoder();
+          //var address = document.getElementById("address").value;
+          //geocoder.geocode( { 'address': loc}, function(results, status) {
+          //if (status == google.maps.GeocoderStatus.OK)
+          //{
+          // do something with the geocoded result
+          //       //
+          //  console.log(results[0].geometry.location.latitude);
+          //  console.log(results[0].geometry.location.longitude);
+         // }
+          //});
+          //
+          } 
+        console.log(listOfDates);
       }
     }
   );
