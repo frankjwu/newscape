@@ -60,67 +60,56 @@ app.get('/contact', function(req, res){
 
 app.post('/display', function(req, res){
   var query = req.body.keywords.toString();
+  var storage = [];
+  var done = 10;
   console.log(query);
-  data = oauth.get(
-    "https://api.twitter.com/1.1/search/tweets.json?q=" + query + "&count=100&result_type=mixed",
-    "343035791-6b8GEQKMnu5byFbVvUPX8d6K6KmqM8BqKwEawK7W",
-    "gIbEV2yVhbtk7pLHxpDyzLTBZTx1vrU2aqJVIPiMk",
-    function (e, data, ref){
-      if (e) console.error(e);
-      else {
-        // var asyncCounter = 1;
-        // var complete = function(tweets) {
-        //   if (--asyncCounter > 0) {
-        //     return;
-        //   }
-        //   console.log(tweets);
-        //   res.render('display', {title: 'Display', data: tweets});
-        // }
-
-        // tweets = processData(JSON.parse(data).statuses);
-        // function processData(tweets) {
-        //   tweets = tweets.sort(function(a, b) {
-        //     datea = new Date(a.created_at);
-        //     dateb = new Date(b.created_at);
-        //     return datea>dateb ? a : b;
-        //   });
-        //   complete(tweets);
-        // }
-        // //console.log(tweets);
-      
-        function getLocs(tweets) {
-          console.log(tweets);
-          var listOfLocations = [];
-          for (i=0;i<tweets.length;i++) {
-            loc = tweets[i]['user']['location']; 
-            zone = tweets[i]['user']['time_zone'];
-        
-            function isInArray(value, array) {
-              return array.indexOf(value) > -1 ? true: false;
-            }
-
-            if (isInArray(loc, listOfLocations) == true) {
-              ;
-            } 
-            else {
-              listOfLocations.push([loc, tweets[i]]);
-            }
-          }  
-          tweets.push(listOfLocations);
-          //console.log(tweets);
-          return tweets
-        }     
-        res.render('display', {
-          title: 'Display',
-          json: JSON.stringify(getLocs(JSON.parse(data).statuses.sort(function(a, b) {
-            datea = new Date(a.created_at);
-            dateb = new Date(b.created_at);
-            return datea > dateb ? a : b;
-          })))
-        });
-
+  for (var i = 0; i < 10; i++) {
+    oauth.get(
+      "https://api.twitter.com/1.1/search/tweets.json?q=" + query + "&count=100&result_type=mixed",
+      "343035791-6b8GEQKMnu5byFbVvUPX8d6K6KmqM8BqKwEawK7W",
+      "gIbEV2yVhbtk7pLHxpDyzLTBZTx1vrU2aqJVIPiMk",
+      function (e, data, ref){
+        if (e) console.error(e);
+        else {
+          storage = storage.concat(JSON.parse(data).statuses);
+          complete()
+        }
+      });
+  }
+  function getLocs(tweets) {
+    console.log(tweets);
+    var listOfLocations = [];
+    for (i=0;i<tweets.length;i++) {
+      loc = tweets[i]['user']['location']; 
+      zone = tweets[i]['user']['time_zone'];
+  
+      function isInArray(value, array) {
+        return array.indexOf(value) > -1 ? true: false;
       }
-    });
+
+      if (isInArray(loc, listOfLocations) == true) {
+        ;
+      } 
+      else {
+        listOfLocations.push([loc, tweets[i]]);
+      }
+    }  
+    tweets.push(listOfLocations);
+    // console.log(tweets);
+    return tweets;
+  }
+
+  function complete() {
+    if (--done > 0)
+      return;
+    res.render('display', {
+      title: 'Display',
+      json: JSON.stringify(getLocs(storage.sort(function(a, b) {
+        datea = new Date(a.created_at);
+        dateb = new Date(b.created_at);
+        return datea > dateb ? a : b;
+      })))
+  }); }     
 });
 
 
