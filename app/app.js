@@ -42,7 +42,7 @@ if ('development' == app.get('env')) {
 
 app.get('/', function(req, res){
   res.render('index', {
-    title: 'Home'
+    title: 'Google'
   });
 });
 
